@@ -53,7 +53,7 @@ def signin(r):
 
 def signout(r):
     logout(r)
-    return redirect(r,'signin')
+    return redirect('signin')
 
 def ChangePass(r):
     current_user=r.user
@@ -72,3 +72,32 @@ def ChangePass(r):
                 return redirect('home')
 
     return render (r,'ChangePass.html')
+
+def CategoryPage(r):
+    C_data=CategoryModel.objects.all()
+    if r.method=="POST":
+        name=r.POST.get('name')
+        CategoryModel.objects.create(
+            name=name
+        )
+    context={
+        'C_data':C_data
+    }
+    return render (r,'CategoryPage.html',context)
+
+def CategoryEdit(r,id):
+    E_data=CategoryModel.objects.get(id=id)
+    if r.method=="POST":
+        name=r.POST.get('name')
+
+        E_data.name=name
+        E_data.save()
+        return redirect('CategoryPage')
+    context={
+        'C_data':E_data
+    }
+    return render (r,'CategoryEdit.html',context)
+
+def CategoryDelete(r,id):
+    CategoryModel.objects.get(id=id).delete()
+    return redirect ('CategoryPage')

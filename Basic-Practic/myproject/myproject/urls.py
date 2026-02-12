@@ -10,4 +10,7 @@ urlpatterns = [
     path('signin/',signin,name='signin'),
     path('signout/',signout,name='signout'),
     path('ChangePass/',ChangePass,name='ChangePass'),
+    path('CategoryPage/',CategoryPage,name='CategoryPage'),
+    path('CategoryEdit/<int:id>/',CategoryEdit,name='CategoryEdit'),
+    path('CategoryDelete/<int:id>/',CategoryDelete,name='CategoryDelete'),
 ]
