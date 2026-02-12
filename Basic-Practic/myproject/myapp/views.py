@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from myapp.models import*
+from myapp.Forms import*
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
@@ -78,7 +79,7 @@ def CategoryPage(r):
     if r.method=="POST":
         name=r.POST.get('name')
         CategoryModel.objects.create(
-            name=name
+            name=name,
         )
     context={
         'C_data':C_data
@@ -101,3 +102,52 @@ def CategoryEdit(r,id):
 def CategoryDelete(r,id):
     CategoryModel.objects.get(id=id).delete()
     return redirect ('CategoryPage')
+
+def Productlist(r):
+    p_data=ProductModel.objects.all()
+    context={
+        'p_data':p_data
+    }
+    return render (r,'Productlist.html',context)
+
+def ProductAdd(r):
+    if r.method=="POST":
+        P_data=ProductForm(r.POST)
+
+        if P_data.is_valid():
+            data=P_data.save(commit=False)
+            data.stock = 'Available'
+            data.total_amount = data.unit_price * data.qty
+            data.save()
+            return redirect('Productlist')
+    else:
+        P_data=ProductForm()
+
+    context={
+        'P_data':P_data
+    }
+    return render (r,'ProductAdd.html',context)
+
+def ProductEdit(r,id):
+    E_data=ProductModel.objects.get(id=id)
+    if r.method=="POST":
+        P_data=ProductForm(r.POST, instance=E_data)
+
+        if P_data.is_valid():
+            data=P_data.save(commit=False)
+            data.stock = 'Available'
+            data.total_amount = data.unit_price * data.qty
+            data.save()
+            return redirect('Productlist')
+    else:
+        P_data=ProductForm(instance=E_data)
+
+    context={
+        'P_data':P_data
+    }
+    return render (r,'ProductAdd.html',context)
+
+
+def ProductDelete(r,id):
+    ProductModel.objects.get(id=id).delete()
+    return redirect ('Productlist')

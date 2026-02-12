@@ -13,4 +13,8 @@ urlpatterns = [
     path('CategoryPage/',CategoryPage,name='CategoryPage'),
     path('CategoryEdit/<int:id>/',CategoryEdit,name='CategoryEdit'),
     path('CategoryDelete/<int:id>/',CategoryDelete,name='CategoryDelete'),
+    path('Productlist/',Productlist,name='Productlist'),
+    path('ProductAdd/',ProductAdd,name='ProductAdd'),
+    path('ProductEdit/<int:id>/',ProductEdit,name='ProductEdit'),
+    path('ProductDelete/<int:id>/',ProductDelete,name='ProductDelete'),
 ]
