@@ -3,8 +3,11 @@
         <div class="logo">MyApp</div>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
+            {% if request.user.roles == 'Recruiter' %}
+                <li><a href="{% url 'Joblist' %}">JoblistPage</a></li>
+                <li><a href="{% url 'Applicationlist' %}">ApplicationlistPage</a></li>
+            {% endif %}
             <li><a href="{% url 'Profilelist' %}">ProfilePage</a></li>
-            <li><a href="{% url 'Joblist' %}">JoblistPage</a></li>
             <li><a href="{% url 'Chengepass' %}">Chengepass</a></li>
             <li><a href="{% url 'signout' %}">Logout</a></li>
         </ul>

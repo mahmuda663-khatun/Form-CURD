@@ -9,7 +9,11 @@ from django.contrib import messages
 # Create your views here.
 
 def home(r):
-    return render (r,'home.html')
+    j_data=JobModel.objects.all()
+    context={
+        'j_data':j_data
+    }
+    return render (r,'home.html',context)
 
 def signup(r):
     if r.method=="POST":
@@ -155,3 +159,41 @@ def JobEdit(r,id):
 def JobDelete(r,id):
     JobModel.objects.get(id=id).delete()
     return redirect ('Joblist')
+
+def Applicationlist(r):
+    A_data=ApplicationModel.objects.all()
+    context={
+        'A_data': A_data
+    }
+    return render (r,'Applicationlist.html',context)
+
+def ApplicationAdd(r):
+    if r.method == "POST":
+        A_data=ApplicationForm(r.POST,r.FILES)
+
+        if A_data.is_valid():
+            A_data.save()
+            return redirect('Applicationlist')
+    A_data=ApplicationForm()
+    context={
+        'A_data':A_data
+    }
+    return render (r,'ApplicationAdd.html',context)
+
+def ApplicationEdit(r,id):
+    Edata=ApplicationModel.objects.get(id=id)
+    if r.method == "POST":
+        A_data=ApplicationForm(r.POST,instance=Edata)
+
+        if A_data.is_valid():
+            A_data.save()
+            return redirect('Applicationlist')
+    A_data=ApplicationForm(instance=Edata)
+    context={
+        'A_data':A_data
+    }
+    return render (r,'ApplicationAdd.html',context)
+
+def ApplicationDelete(r,id):
+    ApplicationModel.objects.get(id=id).delete()
+    return redirect ('Applicationlist')
