@@ -1,0 +1,71 @@
+{% extends 'home.html' %}
+
+
+{% block body %}
+    <!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<h1>Profile Table</h1>
+<h2><a href="{% url 'ProfileAdd' %}">ProfileAdd</a></h2>
+<table>
+  <tr>
+    <th>user</th>
+    <th>skills</th>
+    <th>experience</th>
+    <th>resume</th>
+    <th>Action</th>
+  </tr>
+  
+  {% for i in P_data %}
+    <tr>
+        <td>{{request.user}}</td>
+        <td>{{i.skills}}</td>
+        <td>{{i.experience}}</td>
+        <td>
+            {% if i.resume %}
+                <a href="{{i.resume.url}}">Download</a>
+            {% endif %}            
+        </td>
+        <td>
+            <a href="{% url 'Profiledit' i.id %}">Edit</a>
+            <a href="{% url 'ProfileDelete' i.id %}">Delete</a>
+        </td>
+    </tr>
+  {% endfor %}
+    
+</table>
+
+</body>
+</html>
+
+
+
+{% endblock body %}
+    
