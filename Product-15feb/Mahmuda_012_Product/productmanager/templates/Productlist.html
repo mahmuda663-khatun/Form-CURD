@@ -1,0 +1,77 @@
+{% extends 'home.html' %}
+
+{% block body %}
+    <!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<h2><a href="{% url 'ProductAdd' %}">ProductAdd</a></h2>
+<br>
+<h1>Product Table</h1>
+
+<table>
+  <tr>
+    <th>seller</th>
+    <th>category</th>
+    <th>product_name</th>
+    <th>product_description</th>
+    <th>product_image</th>
+    <th>price</th>
+    <th>stock_quantity</th>
+    <th>created_at</th>
+    <th>Action</th>
+  </tr>
+  
+  {% for i in P_data %}
+    <tr>
+        <td>{{i.seller}}</td>
+        <td>{{i.category}}</td>
+        <td>{{i.product_name}}</td>
+        <td>{{i.product_description}}</td>
+        <td>{{i.product_image}}</td>
+        <td>{{i.price}}</td>
+        <td>{{i.stock_quantity}}</td>
+        <td>{{i.created_at}}</td>
+        <td>
+           <a href="{% url 'ProductEdit' i.id %}">Edit</a>
+            <a href="{% url 'ProductDelete' i.id %}">Delete</a> 
+        </td>
+    </tr>
+  {% endfor %}
+    
+
+</table>
+
+</body>
+</html>
+
+
+
+{% endblock body %}
+    

@@ -1,0 +1,15 @@
+
+    <nav>
+        <div class="logo">MySite</div>
+
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">☰</label>
+
+        <ul class="menu">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'categoryPage' %}">categoryPage</a></li>                   
+            <li><a href="{% url 'Productlist' %}">ProductPage</a></li>                   
+            <li><a href="{% url 'Orderlist' %}">OrderPage</a></li>                   
+            <li><a href="{% url 'signout' %}">Logout</a></li>
+        </ul>
+    </nav>
